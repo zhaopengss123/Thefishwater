@@ -1,0 +1,171 @@
+<div class="content">
+  <div class="selectTab">
+    <nz-tabset (nzSelectChange)="tabcurr($event.index)">
+      <nz-tab nzTitle="老师课表"  >
+        <div class="query">
+          <nz-form-label>主教老师</nz-form-label>
+          <nz-select style="width: 200px;" nzPlaceHolder="请选择" [(ngModel)]="isTeacher">
+            <nz-option *ngFor="let items of teacherList" [nzLabel]="items.name" [nzValue]="items.id"></nz-option>
+          </nz-select>
+          <button nz-button nzType="primary" (click)="queryList()">查询</button>
+          <button nz-button nzType="default">导出</button>
+        </div>
+        <div class="dateSelect">
+          <button nz-button nzType="default" (click)="prveDate()">上周</button>
+          <button nz-button nzType="primary" (click)="nowDate()">本周</button>
+          <button nz-button nzType="default" (click)="nextDate()">下周</button>
+          <button nz-button nzType="dashed">{{startDate}}——{{endDate}}</button>
+        </div>
+        <div class="List_table">
+          <nz-table #basicTable [nzData]="formList">
+            <thead>
+              <tr>
+                <th>时段</th>
+                <th>星期一
+                  <br> {{startDate}}
+                </th>
+                <th>星期二
+                  <br> {{Tuesday}}
+                </th>
+                <th>星期三
+                  <br> {{Wednesday}}
+                </th>
+                <th>星期四
+                  <br> {{Thursday}}
+                </th>
+                <th>星期五
+                  <br> {{Friday}}
+                </th>
+                <th>星期六
+                  <br> {{Saturday}}
+                </th>
+                <th>星期日
+                  <br> {{endDate}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of formList">
+                <td>{{data.startTime}} — {{data.endTime}}</td>
+                <td>
+                    {{data.week == "星期一" ? '课程：' + data.name : ''}}<br>
+                    {{data.week == "星期一" ? '教室：' + data.roomName : ''}}
+                </td>
+                <td>
+                  {{data.week == "星期二" ? '课程：' + data.name : ''}}<br>
+                   {{data.week == "星期二" ? '教室：' + data.roomName : ''}}
+                </td>
+                <td>
+                  {{data.week == "星期三" ? '课程：' + data.name : ''}}
+                  <br> {{data.week == "星期三" ? '教室：' + data.roomName : ''}}
+                </td>
+                <td>
+                  {{data.week == "星期四" ? '课程：' + data.name : ''}}
+                  <br> {{data.week == "星期四" ? '教室：' + data.roomName : ''}}
+                </td>
+                <td>
+                  {{data.week == "星期五" ? '课程：' + data.name : ''}}
+                  <br> {{data.week == "星期五" ? '教室：' + data.roomName : ''}}
+                </td>
+                <td>
+                  {{data.week == "星期六" ? '课程：' + data.name : ''}}
+                  <br> {{data.week == "星期六" ? '教室：' + data.roomName : ''}}
+                </td>
+                <td>
+                  {{data.week == "星期日" ? '课程：' + data.name : ''}}
+                  <br> {{data.week == "星期日" ? '教室：' + data.roomName : ''}}
+                </td>
+        
+              </tr>
+            </tbody>
+          </nz-table>
+
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="学员课表" > 
+        <div class="query">
+          <nz-form-label>学员电话</nz-form-label>
+          <input nz-input style="width: 200px;" placeholder="请输入" [(ngModel)]="mobilePhone">
+          <button nz-button nzType="primary" (click)="squeryList()">查询</button>
+          <button nz-button nzType="default">导出</button>
+        </div>
+        <div class="dateSelect">
+          <button nz-button nzType="dashed" *ngIf="member.name">学员姓名：{{member.name}}  </button>
+          <button nz-button nzType="dashed" *ngIf="member.mobilePhone">学员电话：{{member.mobilePhone}} </button>
+          <button nz-button nzType="default" (click)="prveDate()">上周</button>
+          <button nz-button nzType="primary" (click)="nowDate()">本周</button>
+          <button nz-button nzType="default" (click)="nextDate()">下周</button>
+          <button nz-button nzType="dashed">{{startDate}}——{{endDate}}</button>
+        </div>
+                <div class="List_table">
+                  <nz-table #basicTable [nzData]="currformList">
+                    <thead>
+                      <tr>
+                        <th>时段</th>
+                        <th>星期一
+                          <br> {{startDate}}
+                        </th>
+                        <th>星期二
+                          <br> {{Tuesday}}
+                        </th>
+                        <th>星期三
+                          <br> {{Wednesday}}
+                        </th>
+                        <th>星期四
+                          <br> {{Thursday}}
+                        </th>
+                        <th>星期五
+                          <br> {{Friday}}
+                        </th>
+                        <th>星期六
+                          <br> {{Saturday}}
+                        </th>
+                        <th>星期日
+                          <br> {{endDate}}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of currformList">
+                        <td>{{data.startTime}} — {{data.endTime}}</td>
+                        <td>
+                          {{data.week == "星期一" ? '课程：' + data.name : ''}}
+                          <br> {{data.week == "星期一" ? '教室：' + data.roomName : ''}}
+                        </td>
+                        <td>
+                          {{data.week == "星期二" ? '课程：' + data.name : ''}}
+                          <br> {{data.week == "星期二" ? '教室：' + data.roomName : ''}}
+                        </td>
+                        <td>
+                          {{data.week == "星期三" ? '课程：' + data.name : ''}}
+                          <br> {{data.week == "星期三" ? '教室：' + data.roomName : ''}}
+                        </td>
+                        <td>
+                          {{data.week == "星期四" ? '课程：' + data.name : ''}}
+                          <br> {{data.week == "星期四" ? '教室：' + data.roomName : ''}}
+                        </td>
+                        <td>
+                          {{data.week == "星期五" ? '课程：' + data.name : ''}}
+                          <br> {{data.week == "星期五" ? '教室：' + data.roomName : ''}}
+                        </td>
+                        <td>
+                          {{data.week == "星期六" ? '课程：' + data.name : ''}}
+                          <br> {{data.week == "星期六" ? '教室：' + data.roomName : ''}}
+                        </td>
+                        <td>
+                          {{data.week == "星期日" ? '课程：' + data.name : ''}}
+                          <br> {{data.week == "星期日" ? '教室：' + data.roomName : ''}}
+                        </td>
+                
+                      </tr>
+                    </tbody>
+                  </nz-table>
+                
+                </div>
+      </nz-tab>
+
+
+    </nz-tabset>
+
+  </div>
+</div>

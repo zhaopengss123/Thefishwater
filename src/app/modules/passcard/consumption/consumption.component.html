@@ -1,0 +1,67 @@
+<ng-template #BreadcrumbTmpt>
+  <div class="passcard-header">
+    <h2>通卡消费记录</h2>
+    <div class="passcard-btns">
+      <nz-button-group [style.margin-right]="'8px'">
+        <button nz-button (click)="putForward()">提现记录</button>
+        <button nz-button (click)="presentation()" [nzLoading]="presentationLoading">申请提现</button>
+      </nz-button-group>
+      <button nz-button nzType="primary" routerLink="/home/payment">充值</button>
+    </div>
+  </div>
+  <div class="passcard-detail" nz-row>
+    <div nz-col [nzSpan]="16" class="detail-row">
+      <div nz-col [nzSpan]="12">
+        本店保证金等级：<span>{{ amountDetails?.bondlevel }}元</span>
+      </div>
+      <div nz-col [nzSpan]="12">
+        本店会员预约跨店：<span>{{ amountDetails?.reservedCrossed }}元</span>
+      </div>
+      <div nz-col [nzSpan]="12">
+        提现申请：<span>{{ amountDetails?.preFreezeAmount }}元</span>
+      </div>
+      <div nz-col [nzSpan]="12">
+        退还保证金：<span>{{ amountDetails?.returnBond }}元</span>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="8" class="main-info">
+      <div>
+        <p>冻结金额</p>
+        <div>¥ {{ amountDetails?.freezeAmount }}</div>
+      </div>
+      <div>
+        <p>保证金余额</p>
+        <div>¥ {{ amountDetails?.bondbalance }}</div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div class="container">
+  <ea-list-page url="/tongka/list" [paramsDefault]="paramsDefault" [allowSpace]="false" [queryNode]="queryNode" [tableThead]="tableThead" [EaTableTbodyTr]="EaTableTbodyTr">
+    <ng-template #EaTableTbodyTr let-data>
+      <td>{{ data.cardCode }}</td>
+      <td>{{ data.cardTypeName }}</td>
+      <td>{{ data.member.name }}</td>
+      <td>{{ data.member.nick }}</td>
+      <td>{{ data.isCrossed == 1 ? '是' : '否' }}</td>
+      <td>{{ data.consumption }}</td>
+      <td>{{ data.consumeDate }}</td>
+      <td>{{ data.usedTimes }}</td>
+      <td>{{ data.deductionTimes }}</td>
+      <td>{{ data.type == 1 ? '赠送' : '正价' }}</td>
+      <td>{{ data.commodity.name }}</td>
+      <td>{{ data.consumeType }}</td>
+      <td>{{ data.shop.shopName }}</td>
+      <td>{{ data.mermberStore.shopName }}</td>
+      <td>{{ data.teacherName }}</td>
+      <td>{{ data.satisfaction }}</td>
+      <td>{{ data.weight }}</td>
+      <td>{{ data.swimRing ? data.swimRing['name'] : '--' }}</td>
+      <td>{{ data.swimDuration }}</td>
+      <td>{{ data.weighRemind ? '需要' : '不需要' }}</td>
+      <td>{{ data.member.photoRemind ? '需要' : '不需要' }}</td>
+      <td>{{ data.comment }}</td>
+    </ng-template>
+  </ea-list-page>
+</div>

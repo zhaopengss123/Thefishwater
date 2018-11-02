@@ -1,0 +1,31 @@
+<div class="container">
+  <ea-query [node]="queryNode" (onSubmit)="EaTable.request($event)"></ea-query>
+
+  <ea-table #EaTable [thead]="tableNode" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false" [paramsDefault]="{traceType: 6, followStageId: 4}"
+    url="/customer/memberReturnVisitList">
+    <ng-template let-data #EaTableTbodyTr>
+      <td>{{ data.cardCode }}</td>
+      <td>{{ data.cardTypeName }}</td>
+      <td>{{ data.totalTimes }}（{{ data.times }}/{{ data.freeTimes }}）</td>
+      <td>{{ data.remainTimes }}（{{ data.remainRegularTimes }}/{{ data.remainGiftTimes }}）</td>
+      <td>{{ data.nick }}</td>
+      <td nzWidth="100px" nzLeft="0"><a href="javascript: void(0);" [routerLink]="{outlets: {aux: 'preview/' + data.id}}">{{ data.name }}</a></td>
+      <td>{{ data.birthday || '--' }}</td>
+      <td>
+        <i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i>
+      </td>
+      <td>{{ data.birthday | monthdiff }}</td>
+      <td>{{ data.parentName }}</td>
+      <td>
+        <a href="javascript:;" [getMobile]="data.id">查看</a>
+      </td>
+      <td>{{ data.communityName || '--' }}</td>
+      <td>{{ data.effectDate }}</td>
+      <td>{{ data.nextFollowTime | date: 'yyyy-MM-dd' || '--' }}</td>
+      <td>{{ data.lastFollowTime || '--' }}</td>
+      <td>{{ data.sourceName || '--' }}</td>
+    </ng-template>
+  </ea-table>
+
+  <router-outlet name="aux"></router-outlet>
+</div>

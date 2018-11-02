@@ -1,0 +1,491 @@
+<div class="content">
+  <nz-form-item>
+    <span>
+      <nz-form-label>授课老师</nz-form-label>
+      <nz-select style="width: 200px;" nzPlaceHolder="请选择" name="courseName" [(ngModel)]="employeeId">
+        <nz-option *ngFor="let items of teacherList" [nzLabel]="items.name" [nzValue]="items.id"></nz-option>
+      </nz-select>
+    </span>
+    <span>
+      <nz-form-label>教室</nz-form-label>
+      <nz-select style="width: 200px;" nzPlaceHolder="请选择" name="name" [(ngModel)]="roomId">
+        <nz-option *ngFor="let items of classRoomList" [nzLabel]="items.roomName" [nzValue]="items.id"></nz-option>
+      </nz-select>
+    </span>
+    <span>
+      <nz-form-label>课程名称</nz-form-label>
+      <input nz-input style="width: 200px;" placeholder="请输入" [(ngModel)]="syllabusName">
+    </span>
+    <button nz-button nzType="primary" (click)="selectquery()">查询</button>
+    <div>
+      <button nz-button nzType="primary" (click)="nowDate()">本周</button>
+      <button nz-button nzType="default" (click)="nextDate()">下周</button>
+    </div>
+  </nz-form-item>
+  <div class="table">
+    <nz-table #basicTable [nzData]="tableList" nzShowPagination='false'>
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>星期一</th>
+          <th>星期二</th>
+          <th>星期三</th>
+          <th>星期四</th>
+          <th>星期五</th>
+          <th>星期六</th>
+          <th>星期日</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of tableList">
+          <td>{{data.startTime}}-{{data.endTime}}</td>
+          <td>
+            <div *ngIf="data.week != '星期一'">
+
+            </div>
+            <div *ngIf="data.week == '星期一'">
+              {{data.name}}
+              <a (click)="details(data)">【详情】</a>
+              <br> {{data.roomName}}
+              <br> {{data.employeeName}}
+              <br>
+              <div>
+                学员：
+                <span *ngFor="let item of data.member; let i = index">{{item.memberName}}{{ item.expireDate >= nowtime ? '':'(过)' }}{{ i == data.member.length-1 ? '' : ',' }}</span>
+
+                <img *ngIf="!data.member.length" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<2" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<3" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<4" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="data.week != '星期二'">
+
+            </div>
+            <div *ngIf="data.week == '星期二'">
+              {{data.name}}
+              <a (click)="details(data)">【详情】</a>
+
+              <br> {{data.roomName}}
+              <br> {{data.employeeName}}
+              <br>
+              <div>
+                学员：
+                <span *ngFor="let item of data.member; let i = index">{{item.memberName}}{{ item.expireDate >= nowtime ? '':'(过)' }}{{ i == data.member.length-1 ? '' : ',' }}</span>
+                <img *ngIf="!data.member.length" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<2" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<3" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<4" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="data.week != '星期三'">
+
+            </div>
+            <div *ngIf="data.week == '星期三'">
+              {{data.name}}
+              <a (click)="details(data)">【详情】</a>
+
+              <br> {{data.roomName}}
+              <br> {{data.employeeName}}
+              <br>
+              <div>
+                学员：
+                <span *ngFor="let item of data.member; let i = index">{{item.memberName}}{{ item.expireDate >= nowtime ? '':'(过)' }}{{ i == data.member.length-1 ? '' : ',' }}</span>
+
+                <img *ngIf="!data.member.length" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<2" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<3" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<4" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="data.week != '星期四'">
+
+            </div>
+            <div *ngIf="data.week == '星期四'">
+              {{data.name}}
+              <a (click)="details(data)">【详情】</a>
+
+              <br> {{data.roomName}}
+              <br> {{data.employeeName}}
+              <br>
+              <div>
+                学员：
+                <span *ngFor="let item of data.member; let i = index">{{item.memberName}}{{ item.expireDate >= nowtime ? '':'(过)' }}{{ i == data.member.length-1 ? '' : ',' }}</span>
+                <img *ngIf="!data.member.length" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<2" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<3" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<4" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="data.week != '星期五'">
+
+            </div>
+            <div *ngIf="data.week == '星期五'">
+              {{data.name}}
+              <a (click)="details(data)">【详情】</a>
+
+              <br> {{data.roomName}}
+              <br> {{data.employeeName}}
+              <br>
+              <div>
+                学员：
+                <span *ngFor="let item of data.member; let i = index">{{item.memberName}}{{ item.expireDate >= nowtime ? '':'(过)' }}{{ i == data.member.length-1 ? '' : ',' }}</span>
+                <img *ngIf="!data.member.length" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<2" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<3" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<4" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="data.week != '星期六'">
+
+            </div>
+            <div *ngIf="data.week == '星期六'">
+              {{data.name}}
+              <a (click)="details(data)">【详情】</a>
+
+              <br> {{data.roomName}}
+              <br> {{data.employeeName}}
+              <br>
+              <div>
+                学员：
+                <span *ngFor="let item of data.member; let i = index">{{item.memberName}}{{ item.expireDate >= nowtime ? '':'(过)' }}{{ i == data.member.length-1 ? '' : ',' }}</span>
+                <img *ngIf="!data.member.length" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<2" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<3" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<4" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+              </div>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="data.week != '星期日'">
+
+            </div>
+            <div *ngIf="data.week == '星期日'">
+              {{data.name}}
+              <a (click)="details(data)">【详情】</a>
+
+              <br> {{data.roomName}}
+              <br> {{data.employeeName}}
+              <br>
+              <div>
+                学员：
+                <span *ngFor="let item of data.member; let i = index">{{item.memberName}}{{ item.expireDate >= nowtime ? '':'(过)' }}{{ i == data.member.length-1 ? '' : ',' }}</span>
+                <img *ngIf="!data.member.length" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<2" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<3" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+                <img *ngIf="data.member.length<4" (click)="showstudents(data)" src="https://ylbb-admin-erp.oss-cn-beijing.aliyuncs.com/addimgdsadasdsa4123123123123.png"
+                  alt="">
+              </div>
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="tc_form">
+    <nz-modal [(nzVisible)]="showstudentsForm" nzTitle="查询" (nzOnCancel)="closestudentsForm()" (nzOnOk)="isstudentsForm()">
+      <p style="border-bottom: solid 1px #eee; padding-bottom: 10px;">
+        <nz-form-label>家长电话</nz-form-label>
+        <input nz-input style="width: 200px;" placeholder="请输入" [(ngModel)]="mobilePhone">
+        <button style="margin-left: 10px;" nz-button nzType="primary" (click)="selectshowstudents()">查询</button>
+      </p>
+      <div style="border-bottom: solid 1px #eee; padding-bottom: 10px; margin-bottom: 10px;">
+        <h3>学员基本信息</h3>
+        <p>
+          <span>
+            <nz-form-label>姓名</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="studentInformation.name" disabled>
+          </span>
+          <span style="margin-left: 10px;">
+            <nz-form-label>小名</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="studentInformation.parentName" disabled>
+          </span>
+        </p>
+        <p>
+          <span>
+            <nz-form-label>生日</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="studentInformation.birthday" disabled>
+          </span>
+          <span style="margin-left: 10px;">
+            <nz-form-label>性别</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="studentInformation.sex" disabled>
+          </span>
+        </p>
+        <p>
+          <span>
+            <nz-form-label>状态</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="studentInformation.havacard" disabled>
+          </span>
+          <span style="margin-left: 10px;">
+            <nz-form-label>家长电话</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="studentInformation.mobilePhone" disabled>
+          </span>
+        </p>
+      </div>
+      <div>
+        <h3>课程信息</h3>
+        <p>课程名称：{{showName}}</p>
+        <p>教室：{{showroomName}}</p>
+        <p>主教老师：{{showemployeeName}}</p>
+      </div>
+    </nz-modal>
+
+    <nz-modal [(nzVisible)]="showListdetail" nzTitle="查询" (nzOnCancel)="closeListdetail()" (nzOnOk)="closeListdetail()">
+      <div>
+        <p>课程名称：{{studentdata.name}}</p>
+        <p>教室：{{studentdata.roomName}}</p>
+        <p>主教老师：{{studentdata.employeeName}}</p>
+        <div>
+          <h3>学员</h3>
+        </div>
+        <div style="margin-top: 10px;" *ngFor="let item of studentdata.member">
+          <span style="padding-right: 20px;">{{item.memberName}} ：</span>
+          <button nz-button nzSize="small" (click)="Adjust(item.memberId,item.memberName)">调课</button>
+          <button nz-button nzType="primary" nzSize="small" (click)="selectquery()">结算</button>
+          <button nz-button nzSize="small" (click)="memberStopcard(item.memberId)">停卡</button>
+          <button nz-button nzType="primary" nzSize="small" (click)="memberRecord(item.memberId,studentdata)">延期</button>
+        </div>
+      </div>
+    </nz-modal>
+
+    <nz-modal [(nzVisible)]="showRecord" nzTitle="延期管理" (nzOnCancel)="closeRecord()" (nzOnOk)="isRecord()">
+      <div>
+        <h3>学员基本信息</h3>
+        <p>
+          <span>
+            <nz-form-label>姓名</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="memberdetail.name" disabled>
+          </span>
+          <span style="margin-left: 10px;">
+            <nz-form-label>小名</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="memberdetail.parentName" disabled>
+          </span>
+        </p>
+        <p>
+          <span>
+            <nz-form-label>生日</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="memberdetail.birthday" disabled>
+          </span>
+          <span style="margin-left: 10px;">
+            <nz-form-label>性别</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="memberdetail.sex" disabled>
+          </span>
+        </p>
+        <p>
+          <span>
+            <nz-form-label>状态</nz-form-label>
+            <input nz-input style="width: 150px;" placeholder="请查询" [(ngModel)]="memberdetail.havacard" disabled>
+          </span>
+        </p>
+      </div>
+      <div>
+        <h3>课程信息</h3>
+        <p>
+          课程名称：{{ memberdetail.courseName}}
+        </p>
+        <p>
+          上课时间：{{ memberdetail.currentDate}} {{memberdetail.startTime}}-{{memberdetail.endTime}}
+        </p>
+      </div>
+    </nz-modal>
+    <nz-modal [(nzVisible)]="showmodelts" nzTitle="提示" (nzOnCancel)="closemodelts()" (nzOnOk)="closemodelts()">
+      <div>
+        <h2>延期成功</h2>
+        <p>课程名称：{{ memberdetail.courseName}}</p>
+        <p>上课时间：{{callcurrentDate}}</p>
+      </div>
+    </nz-modal>
+
+    <!-- 调课弹框 -->
+    <nz-modal nzWidth="95%" [(nzVisible)]="showAdjust" nzTitle="调课" [nzFooter]="tplFooter">
+      <p>学员姓名：{{memberdetailTk.name}}</p>
+      <p>剩余卡次：{{memberdetailTk.cardNumber}}</p>
+      <div>
+        <h3>请选择课程</h3>
+        <nz-radio-group [(ngModel)]="radioValue" (ngModelChange)="selectlabel()" style="width: 100%;">
+          <nz-table #basicTable [nzData]="SyllabusAllList" nzShowPagination='false'>
+            <thead>
+              <tr>
+                <th>请选择</th>
+                <th>课程名称</th>
+                <th>课程类型</th>
+                <th>课程类别</th>
+                <th>课程状态</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of SyllabusAllList">
+                <td>
+                  <label nz-radio [nzValue]="data.name"></label>
+                </td>
+                <td>{{data.name}}</td>
+                <td>{{data.lessonName}}</td>
+                <td>{{data.courseName}}</td>
+                <td>{{data.courseStatus==0?'启用':'停用'}}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </nz-radio-group>
+      </div>
+      <div>
+        <h3 style="margin-top: 20px;">课程排期</h3>
+       <nz-radio-group style="width: 100%;" [(ngModel)]="radioValue">            
+        <nz-table #basicTable [nzData]="RecordList" nzShowPagination='false'>
+          <thead>
+            <tr>
+              <th>时段</th>
+              <th>星期一</th>
+              <th>星期二</th>
+              <th>星期三</th>
+              <th>星期四</th>
+              <th>星期五</th>
+              <th>星期六</th>
+              <th>星期日</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of RecordList">
+              <td>{{data.startTime}}-{{data.endTime}}</td>
+              <td>
+                <div *ngIf="data.week == '星期一'">
+                  <p>课程：{{data.name}}</p>
+                  <p>教室：{{data.roomName}}</p>
+                  <p>主助教：{{data.employeeName}}</p>
+                  <p>日期：{{data.currentDate}}</p>
+                  <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
+                  <p *ngIf="data.galleryful-data.number>0"><label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="datalabelChange(data)" >选择该课程</label></p>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="data.week == '星期二'">
+                  <p>课程：{{data.name}}</p>
+                  <p>教室：{{data.roomName}}</p>
+                  <p>主助教：{{data.employeeName}}</p>
+                  <p>日期：{{data.currentDate}}</p>
+                  <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
+                  <p *ngIf="data.galleryful-data.number>0">
+                    <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="datalabelChange(data)">选择该课程</label>
+                  </p>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="data.week == '星期三'">
+                  <p>课程：{{data.name}}</p>
+                  <p>教室：{{data.roomName}}</p>
+                  <p>主助教：{{data.employeeName}}</p>
+                  <p>日期：{{data.currentDate}}</p>
+                  <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
+                  <p *ngIf="data.galleryful-data.number>0">
+                    <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="datalabelChange(data)">选择该课程</label>
+                  </p>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="data.week == '星期四'">
+                  <p>课程：{{data.name}}</p>
+                  <p>教室：{{data.roomName}}</p>
+                  <p>主助教：{{data.employeeName}}</p>
+                  <p>日期：{{data.currentDate}}</p>
+                  <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
+                  <p *ngIf="data.galleryful-data.number>0">
+                    <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="datalabelChange(data)">选择该课程</label>
+                  </p>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="data.week == '星期五'">
+                  <p>课程：{{data.name}}</p>
+                  <p>教室：{{data.roomName}}</p>
+                  <p>主助教：{{data.employeeName}}</p>
+                  <p>日期：{{data.currentDate}}</p>
+                  <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
+                  <p *ngIf="data.galleryful-data.number>0">
+                    <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="datalabelChange(data)">选择该课程</label>
+                  </p>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="data.week == '星期六'">
+                  <p>课程：{{data.name}}</p>
+                  <p>教室：{{data.roomName}}</p>
+                  <p>主助教：{{data.employeeName}}</p>
+                  <p>日期：{{data.currentDate}}</p>
+                  <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
+                  <p *ngIf="data.galleryful-data.number>0">
+                    <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="datalabelChange(data)">选择该课程</label>
+                  </p>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="data.week == '星期日'">
+                  <p>课程：{{data.name}}</p>
+                  <p>教室：{{data.roomName}}</p>
+                  <p>主助教：{{data.employeeName}}</p>
+                  <p>日期：{{data.currentDate}}</p>
+                  <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
+                  <p *ngIf="data.galleryful-data.number>0">
+                    <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="datalabelChange(data)">选择该课程</label>
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-radio-group>
+      </div>
+        <ng-template #tplFooter>
+          <button nz-button (click)="closeAdjust()">取消</button>
+          <button nz-popconfirm  nzType="primary" nzTitle="是否继续排课?" (nzOnConfirm)="isAdjust(1)" (nzOnCancel)="isAdjust(0)" nzPlacement="top" nz-button>确定</button>
+        </ng-template>
+    </nz-modal>
+    <!-- 停卡弹框 -->
+      <nz-modal [(nzVisible)]="showStopcard" nzTitle="停卡" (nzOnCancel)="closeStopcard()" (nzOnOk)="isStopcard()">
+        <div>
+          <p>卡号：{{stopcardMemberdetail.cardCode}}</p>
+          <p>会员：{{stopcardMemberdetail.name}}</p>
+          <p>停卡至：<nz-date-picker style="width: 200px;" nzFormat="yyyy-MM-dd" [(ngModel)]="stopcardMemberdetail.reopenDate" ></nz-date-picker></p> 
+        </div>
+      </nz-modal>
+
+
+  </div>
+
+</div>

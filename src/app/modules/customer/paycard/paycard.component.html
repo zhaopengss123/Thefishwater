@@ -1,0 +1,35 @@
+<ng-template #breadcrumbTmpt>
+  <div style="width: 80%; max-width: 600px; margin: 0 auto 30px;">
+    <nz-input-group nzSearch nzSize="large" [nzSuffix]="suffixButton">
+      <input type="text" nz-input [(ngModel)]="memberCard" placeholder="请输入会员卡号" (keyup.enter)="searchSubmit()">
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <button nz-button nzType="primary" nzSize="large" (click)="searchSubmit()" nzSearch>搜索</button>
+    </ng-template>
+  </div>
+</ng-template>
+
+<div class="container">
+  <nz-table #basicTable [nzData]="dataSet" [nzShowPagination]="false" [nzLoading]="loading">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>卡号</th>
+        <th>手机号</th>
+        <th>有效期</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.name }}</td>
+        <td>{{ data.sex }}</td>
+        <td>{{ data.cardCode }}</td>
+        <td>{{ data.phone }}</td>
+        <td>{{ data.expireDays }}</td>
+        <td><a (click)="consumption(data.id)">消费</a></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

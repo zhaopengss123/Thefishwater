@@ -1,0 +1,53 @@
+.ant-form-inline nz-form-item {
+  width: 100%;
+  margin-bottom: 16px;
+}
+.hp-query-btns {
+  float: right;
+  nz-form-control {
+    width: 100%;
+  }
+  nz-form-control {
+    text-align: right;
+  }
+} 
+
+.between-one {
+  width: calc(50% - 15px);
+}
+.between-two {
+  width: 30px;
+  border-left: 0px; 
+  pointer-events: none; 
+  background-color: rgb(255, 255, 255);
+}
+.between-three {
+  width: calc(50% - 15px);
+  border-left: 0px;
+}
+
+:host ::ng-deep { 
+  nz-input-group {
+    &:hover .anticon {
+      opacity: 1;
+      visibility: visible;
+    }
+    .anticon {
+      color: rgba(0, 0, 0, 0.25);
+      font-size: 12px;
+      opacity: 0;
+      visibility: hidden;
+      cursor: pointer;
+      transition: all .3s;
+      &:hover {
+        color: rgba(0, 0, 0, 0.43);
+      }
+    }
+  }
+  .ant-calendar-picker {
+    width: 100%;
+    .ant-calendar-range-picker-input {
+      text-align: left;
+    }
+  }
+}
